@@ -45,7 +45,7 @@ df_data = pd.read_csv('data/DataSumatera_land_98u22.csv')
 def set_data():
     st.subheader("📁Set Data")
     expn_data = st.expander("🔔 Tentang Data")
-    expn_data.caption("Dalam proses prediksi nilai emisi karbon penyebab hotspot kebakaran hutan menggunakan dataset emisi karbon dan indikator iklim, yang terdiri dari data Emisi Karbon, Curah Hujan, Kelembapan, Kecepatan Angin, Rata-rata Suhu, dan Suhu Maksimum, yang bersumber dari gabungan data (GFED4.1s) Global Fire and Emissions Data dan (ERA5). Tugas Akhir ini menggunakan data bulanan dengan record data pada rentang tahun1998 hingga 2022. Untuk data Emisi Karbon bersumber dari (GFED4.1s) yang menggunakan grid data yang beresolusi 0,25° x 0,25°, dengan setiap file data berisi 1440 kolom dan 720 baris, dengan unit satuan emisi bulanan gC/m^2. Dataset (GFED4.1s) dapat diperoleh dari https://www.geo.vu.nl/~gwerf/GFED/GFED4/. Kemudian untuk data iklim seperti tp (Curah Hujan), d2m (Kelembapan), si10 (Kecepatan Angin), t2m (Rata-rata Suhu), dan tmax (Suhu Maksimum), menggunakan data dari (ERA5) atau generasi kelima dari data analisis ulang Prakiraan Cuaca Jangka Menengah Eropa atau European Centre Medium-Range Weather Forecasts (ECMWF). Data pada ERA5 telah di-regrid ke grid lat-lon reguler beresolusi 0,25° x 0,25° untuk analisis ulang dan 0,5° untuk estimasi ketidakpastian (masing-masing 0,5 dan 1 derajat untuk gelombang laut). Dataset iklim ERA5 digunakan didapatkan dari https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-single-levels-monthly-means. Data Emisi Kabon GFED4.1 menjadi target prediksi data untuk training dan testing model Random Forest Regression dan Gradient Boosting Regression.\n\n⚠️Keterangan Variabel: \n Terdapat 9 atribut utama dari dataset diantaranya adalah:\n 1. time (dates)\n 2. latitude (latitude)\n 3. longitude (longitude)\n 4. si10 (wind speed)\n 5. d2m (humidity)\n 6. t2m (average temperature)\n 7. tp (precipitation)\n 8. tmax (temperature maximum)\n 9. emissions (emissions carbon)")    
+    expn_data.caption("Dalam proses prediksi nilai emisi karbon penyebab hotspot kebakaran hutan menggunakan dataset emisi karbon dan indikator iklim, yang terdiri dari data Emisi Karbon, Curah Hujan, Kelembapan, Kecepatan Angin, Rata-rata Suhu, dan Suhu Maksimum, yang bersumber dari gabungan data (GFED4.1s) Global Fire and Emissions Data dan (ERA5). Tugas Akhir ini menggunakan data bulanan dengan record data pada rentang tahun1998 hingga 2022. Untuk data Emisi Karbon bersumber dari (GFED4.1s) yang menggunakan grid data yang beresolusi 0,25° x 0,25°, dengan setiap file data berisi 1440 kolom dan 720 baris, dengan unit satuan emisi bulanan gC/m^2. Dataset (GFED4.1s) dapat diperoleh dari https://www.geo.vu.nl/~gwerf/GFED/GFED4/. Kemudian untuk data iklim seperti tp (Curah Hujan), d2m (Kelembapan), si10 (Kecepatan Angin), t2m (Rata-rata Suhu), dan tmax (Suhu Maksimum), menggunakan data dari (ERA5) atau generasi kelima dari data analisis ulang Prakiraan Cuaca Jangka Menengah Eropa atau European Centre Medium-Range Weather Forecasts (ECMWF). Data pada ERA5 telah di-regrid ke grid lat-lon reguler beresolusi 0,25° x 0,25°. Dataset iklim ERA5 digunakan didapatkan dari https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-single-levels-monthly-means. Data Emisi Kabon GFED4.1 menjadi target prediksi data untuk training dan testing model Random Forest Regression dan Gradient Boosting Regression.\n\n⚠️Keterangan Variabel: \n Terdapat 9 atribut utama dari dataset diantaranya adalah:\n 1. time (dates)\n 2. latitude (latitude)\n 3. longitude (longitude)\n 4. si10 (wind speed)\n 5. d2m (humidity)\n 6. t2m (average temperature)\n 7. tp (precipitation)\n 8. tmax (temperature maximum)\n 9. emissions (emissions carbon)")    
     
     st.subheader("Sampel Set Data :")
     st.caption("Menampilkan sampel set data dari 8 index data teratas dan 8 index data terakhir")
@@ -86,6 +86,10 @@ def visualisasi_data():
     st.caption("Menampilkan distribusi nilai per-tingkat figur dari features utama")
     st.image('data/distplot.png')
 
+    st.subheader("📊Boxplot Data")
+    st.caption("Menampilkan distribusi nilai minimum, persentil ke-25 (25% data), median (50% data), persentil ke-75 (75% data), nilai maksimum serta kemungkinan keberadaan outlier dari features utama")
+    st.image('data/boxplot.png')
+
     st.subheader("📊Total Emisi Karbon 1998-2022")
     st.caption("Menampilkan tingkat total emisi karbon versi GFED4.1s per-tahun selama 1998-2022")
     st.image('data/Total_GFED.png')
@@ -110,9 +114,18 @@ def emissions_display_rfr_default():
             st.warning("RMSE: 10,43 MAE: 108,91", icon="⚠️")
  
         rtab1, rtab2, rtab3 = st.tabs(["Emisi Karbon 2021", "Emisi Karbon 2022", "Emisi Karbon 2023"])
-        with rtab1: st.image('data/rfr_em21.png')
-        with rtab2: st.image('data/rfr_em22.png')
-        with rtab3: st.image('data/rfr_em23.png')
+        with rtab1: 
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2021', 'Aktual Emisi Karbon 2021'))
+            if option == "Prediksi Emisi Karbon 2021": st.image('data/rfr_em21.png')
+            elif option == "Aktual Emisi Karbon 2021": st.image('data/aktual/Aktual_em_2021.png')
+        with rtab2: 
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2022', 'Aktual Emisi Karbon 2022'))
+            if option == "Prediksi Emisi Karbon 2022": st.image('data/rfr_em22.png')
+            elif option == "Aktual Emisi Karbon 2022": st.image('data/aktual/Aktual_em_2022.png')
+        with rtab3: 
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2023', 'Aktual Emisi Karbon 2023'))
+            if option == "Prediksi Emisi Karbon 2023": st.image('data/rfr_em23.png')
+            elif option == "Aktual Emisi Karbon 2023": st.image('data/aktual/Aktual_em_2023.png')
 
         st.subheader("🔥Kontribusi Variabel Terhadap Random Forest Regression")
         st.image('data/rfr_varcontribution.png')
@@ -129,9 +142,18 @@ def emissions_display_gbr_default():
             st.warning("RMSE: 10,87 MAE: 2,91", icon="⚠️")
         
         gtab1, gtab2, gtab3 = st.tabs(["Emisi Karbon 2021", "Emisi Karbon 2022", "Emisi Karbon 2023"])
-        with gtab1: st.image('data/gbr_em21.png')
-        with gtab2: st.image('data/gbr_em22.png')
-        with gtab3: st.image('data/gbr_em23.png')
+        with gtab1: 
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2021', 'Aktual Emisi Karbon 2021'))
+            if option == "Prediksi Emisi Karbon 2021": st.image('data/gbr_em21.png')
+            elif option == "Aktual Emisi Karbon 2021": st.image('data/aktual/Aktual_em_2021.png')
+        with gtab2: 
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2022', 'Aktual Emisi Karbon 2022'))
+            if option == "Prediksi Emisi Karbon 2022": st.image('data/gbr_em22.png')
+            elif option == "Aktual Emisi Karbon 2022": st.image('data/aktual/Aktual_em_2022.png')
+        with gtab3: 
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2023', 'Aktual Emisi Karbon 2023'))
+            if option == "Prediksi Emisi Karbon 2023": st.image('data/gbr_em23.png')
+            elif option == "Aktual Emisi Karbon 2023": st.image('data/aktual/Aktual_em_2023.png')
 
         st.subheader("🔥Kontribusi Variabel Terhadap Gradient Boosting Regression")
         st.image('data/gbr_varcontribution.png')
@@ -147,10 +169,22 @@ def emissions_display_rfr_r4():
         with col2:
             st.warning("RMSE: 128.80 MAE: 16590.48", icon="⚠️")
         rtab1, rtab2, rtab3, rtab4 = st.tabs(["Emisi Karbon 2020", "Emisi Karbon 2021", "Emisi Karbon 2022", "Emisi Karbon 2023"])
-        with rtab1: st.image('data/rfr-ratio/rfr_em20_ratio_4.png')
-        with rtab2: st.image('data/rfr-ratio/rfr_em21_ratio_4.png')
-        with rtab3: st.image('data/rfr-ratio/rfr_em22_ratio_4.png')
-        with rtab4: st.image('data/rfr-ratio/rfr_em23_ratio_4.png')
+        with rtab1: 
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2020', 'Aktual Emisi Karbon 2020'))
+            if option == "Prediksi Emisi Karbon 2020": st.image('data/rfr-ratio/rfr_em20_ratio_4.png')
+            elif option == "Aktual Emisi Karbon 2020": st.image('data/aktual/Aktual_em_2020.png')
+        with rtab2:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2021', 'Aktual Emisi Karbon 2021'))
+            if option == "Prediksi Emisi Karbon 2021": st.image('data/rfr-ratio/rfr_em21_ratio_4.png')
+            elif option == "Aktual Emisi Karbon 2021": st.image('data/aktual/Aktual_em_2021.png')
+        with rtab3:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2022', 'Aktual Emisi Karbon 2022'))
+            if option == "Prediksi Emisi Karbon 2022": st.image('data/rfr-ratio/rfr_em22_ratio_4.png')
+            elif option == "Aktual Emisi Karbon 2022": st.image('data/aktual/Aktual_em_2022.png')
+        with rtab4:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2023', 'Aktual Emisi Karbon 2023'))
+            if option == "Prediksi Emisi Karbon 2023": st.image('data/rfr-ratio/rfr_em23_ratio_4.png')
+            elif option == "Aktual Emisi Karbon 2023": st.image('data/aktual/Aktual_em_2023.png')
 
 def emissions_display_gbr_r4():
         st.subheader("🔥Visualisasi Prediksi Gradient Boosting Regression")
@@ -159,11 +193,24 @@ def emissions_display_gbr_r4():
             st.info("Menampilkan prediksi sebaran emisi karbon pulau Sumatera untuk tahun 2020, 2021, 2022, 2023, sebagai indikasi hotspot kebarakaran hutan hasil Gradient Boosting Regression dengan rasio **84% : 16% (4 Tahun)**.", icon="ℹ️")
         with col2:
             st.warning("RMSE: 129.66 MAE: 9.86", icon="⚠️")
+
         rtab1, rtab2, rtab3, rtab4 = st.tabs(["Emisi Karbon 2020", "Emisi Karbon 2021", "Emisi Karbon 2022", "Emisi Karbon 2023"])
-        with rtab1: st.image('data/gbr-ratio/gbr_em20_ratio_4.png')
-        with rtab2: st.image('data/gbr-ratio/gbr_em21_ratio_4.png')
-        with rtab3: st.image('data/gbr-ratio/gbr_em22_ratio_4.png')
-        with rtab4: st.image('data/gbr-ratio/gbr_em23_ratio_4.png')
+        with rtab1:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2020', 'Aktual Emisi Karbon 2020'))
+            if option == "Prediksi Emisi Karbon 2020": st.image('data/gbr-ratio/gbr_em20_ratio_4.png')
+            elif option == "Aktual Emisi Karbon 2020": st.image('data/aktual/Aktual_em_2020.png')
+        with rtab2:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2021', 'Aktual Emisi Karbon 2021'))
+            if option == "Prediksi Emisi Karbon 2021": st.image('data/gbr-ratio/gbr_em21_ratio_4.png')
+            elif option == "Aktual Emisi Karbon 2021": st.image('data/aktual/Aktual_em_2021.png')
+        with rtab3:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2022', 'Aktual Emisi Karbon 2022'))
+            if option == "Prediksi Emisi Karbon 2022": st.image('data/gbr-ratio/gbr_em22_ratio_4.png')
+            elif option == "Aktual Emisi Karbon 2022": st.image('data/aktual/Aktual_em_2022.png')        
+        with rtab4:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2023', 'Aktual Emisi Karbon 2023'))
+            if option == "Prediksi Emisi Karbon 2023": st.image('data/gbr-ratio/gbr_em23_ratio_4.png')
+            elif option == "Aktual Emisi Karbon 2023": st.image('data/aktual/Aktual_em_2023.png')
 
 def emissions_display_rfr_r5():
         st.subheader("🔥Visualisasi Prediksi Random Forest Regression")
@@ -172,12 +219,29 @@ def emissions_display_rfr_r5():
             st.info("Menampilkan proyeksi prediksi sebaran emisi karbon pulau Sumatera untuk tahun 2019, 2020, 2021, 2022, 2023, sebagai indikasi hotspot kebarakaran hutan hasil Randon Forest Regression dengan rasio **80% : 20% (5 Tahun)**.", icon="ℹ️")
         with col2:
             st.warning("RMSE: 115.89 MAE: 13430.80", icon="⚠️")
+
         rtab1, rtab2, rtab3, rtab4, rtab5 = st.tabs(["Emisi Karbon 2019", "Emisi Karbon 2020", "Emisi Karbon 2021", "Emisi Karbon 2022", "Emisi Karbon 2023"])
-        with rtab1: st.image('data/rfr-ratio/rfr_em19_ratio_5.png')
-        with rtab2: st.image('data/rfr-ratio/rfr_em20_ratio_5.png')
-        with rtab3: st.image('data/rfr-ratio/rfr_em21_ratio_5.png')
-        with rtab4: st.image('data/rfr-ratio/rfr_em22_ratio_5.png')
-        with rtab5: st.image('data/rfr-ratio/rfr_em23_ratio_5.png')
+        with rtab1:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2019', 'Aktual Emisi Karbon 2019'))
+            if option == "Prediksi Emisi Karbon 2019": st.image('data/rfr-ratio/rfr_em19_ratio_5.png')
+            elif option == "Aktual Emisi Karbon 2019": st.image('data/aktual/Aktual_em_2019.png')
+        with rtab2: 
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2020', 'Aktual Emisi Karbon 2020'))
+            if option == "Prediksi Emisi Karbon 2020": st.image('data/rfr-ratio/rfr_em20_ratio_5.png')
+            elif option == "Aktual Emisi Karbon 2020": st.image('data/aktual/Aktual_em_2020.png')
+        with rtab3:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2021', 'Aktual Emisi Karbon 2021'))
+            if option == "Prediksi Emisi Karbon 2021": st.image('data/rfr-ratio/rfr_em21_ratio_5.png')
+            elif option == "Aktual Emisi Karbon 2021": st.image('data/aktual/Aktual_em_2021.png')
+        with rtab4:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2022', 'Aktual Emisi Karbon 2022'))
+            if option == "Prediksi Emisi Karbon 2022": st.image('data/rfr-ratio/rfr_em22_ratio_5.png')
+            elif option == "Aktual Emisi Karbon 2022": st.image('data/aktual/Aktual_em_2022.png')
+        with rtab5:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2023', 'Aktual Emisi Karbon 2023'))
+            if option == "Prediksi Emisi Karbon 2023": st.image('data/rfr-ratio/rfr_em23_ratio_5.png')
+            elif option == "Aktual Emisi Karbon 2023": st.image('data/aktual/Aktual_em_2023.png')
+
 
 def emissions_display_gbr_r5():
         st.subheader("🔥Visualisasi Prediksi Gradient Boosting Regression")
@@ -186,12 +250,28 @@ def emissions_display_gbr_r5():
             st.info("Menampilkan prediksi sebaran emisi karbon pulau Sumatera untuk tahun 2019, 2020, 2021, 2022, 2023, sebagai indikasi hotspot kebarakaran hutan hasil Gradient Boosting Regression dengan rasio **80% : 20% (5 Tahun)**.", icon="ℹ️")
         with col2:
             st.warning("RMSE: 116.56 MAE: 9.60", icon="⚠️")
+
         rtab1, rtab2, rtab3, rtab4, rtab5 = st.tabs(["Emisi Karbon 2019", "Emisi Karbon 2020", "Emisi Karbon 2021", "Emisi Karbon 2022", "Emisi Karbon 2023"])
-        with rtab1: st.image('data/gbr-ratio/gbr_em19_ratio_5.png')
-        with rtab2: st.image('data/gbr-ratio/gbr_em20_ratio_5.png')
-        with rtab3: st.image('data/gbr-ratio/gbr_em21_ratio_5.png')
-        with rtab4: st.image('data/gbr-ratio/gbr_em22_ratio_5.png')
-        with rtab5: st.image('data/gbr-ratio/gbr_em23_ratio_5.png')
+        with rtab1:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2019', 'Aktual Emisi Karbon 2019'))
+            if option == "Prediksi Emisi Karbon 2019": st.image('data/gbr-ratio/gbr_em19_ratio_5.png')
+            elif option == "Aktual Emisi Karbon 2019": st.image('data/aktual/Aktual_em_2019.png')
+        with rtab2: 
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2020', 'Aktual Emisi Karbon 2020'))
+            if option == "Prediksi Emisi Karbon 2020": st.image('data/gbr-ratio/gbr_em20_ratio_5.png')
+            elif option == "Aktual Emisi Karbon 2020": st.image('data/aktual/Aktual_em_2020.png')
+        with rtab3:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2021', 'Aktual Emisi Karbon 2021'))
+            if option == "Prediksi Emisi Karbon 2021": st.image('data/gbr-ratio/gbr_em21_ratio_5.png')
+            elif option == "Aktual Emisi Karbon 2021": st.image('data/aktual/Aktual_em_2021.png')
+        with rtab4:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2022', 'Aktual Emisi Karbon 2022'))
+            if option == "Prediksi Emisi Karbon 2022": st.image('data/gbr-ratio/gbr_em22_ratio_5.png')
+            elif option == "Aktual Emisi Karbon 2022": st.image('data/aktual/Aktual_em_2022.png')
+        with rtab5:
+            option = st.selectbox( '🔻Predisi/Aktual', ('Prediksi Emisi Karbon 2023', 'Aktual Emisi Karbon 2023'))
+            if option == "Prediksi Emisi Karbon 2023": st.image('data/gbr-ratio/gbr_em23_ratio_5.png')
+            elif option == "Aktual Emisi Karbon 2023": st.image('data/aktual/Aktual_em_2023.png')
 
 def var_contributions():
     st.header('Kontribusi Variabel untuk Model')
