@@ -1,5 +1,3 @@
 # Visualization-of-carbon-emission-prediction-modeling
-This repos created for Last Task 
-
-ℹ️ Author: </br>
-Fauzi Arya Surya Abadi
+ℹ️ Author: Fauzi Arya Surya Abadi
+**This repos created for Last Task**
