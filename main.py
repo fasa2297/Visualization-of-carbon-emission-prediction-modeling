@@ -35,11 +35,7 @@ st.markdown(
 
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib import colors
-from mpl_toolkits.basemap import Basemap, cm
 from streamlit_option_menu import option_menu
-import streamlit.components.v1 as html
 
 df_data = pd.read_csv('data/DataSumatera_land_98u22.csv')
 def set_data():
@@ -372,7 +368,7 @@ def menu():
         expn_a = st.expander("📝 Author")
         expn_a.caption("2023\n\nFauzi Arya Surya Abadi (S1 Informatika)")
         expn_b = st.expander("🔔 About")
-        expn_b.caption("Tujuan penelitian ini secara umum untuk mengetahui hasil output prediksi data hotspot 2023 berupa nilai dan visualisasi menggunakan Machine Learning dengan model Random Forest Regression dan dan Gradient Boosting Regression, dengan kasus prediksi hotspot yang dihasilkan untuk wilayah Sumatra. Sehingga penulis dapat memberikan tujuan penelitian sebagai berikut:\n 1.	Membandingkan algoritma Supervised Learning model Random Forest Regression dan Gradient Boosting Regression dalam memprediksi hotspots kebakaran hutan untuk studi kasus wilayah Sumatra. \n2.	Mengetahui indikator iklim apa saja yang memilki kolerasi paling tinggi terhadap penyebaran hotspot, dan persentase kontribusi dalam model. \n3.	Menggunakan bahasa pemorgraman python untuk implementasi memprediksi hotspot menggunakan model Random Forest Regression dan Gradient Boosting Regression.")
+        expn_b.caption("Tujuan penelitian ini secara umum untuk mengetahui hasil output prediksi data hotspot 2021, 2022, 2023 berupa nilai dan visualisasi hasil dari penggunaan Machine Learning dengan model Random Forest Regression dan dan Gradient Boosting Regression, dengan kasus prediksi hotspot yang dihasilkan untuk wilayah Sumatra. Sehingga penulis dapat memberikan tujuan penelitian sebagai berikut:\n 1.	Membandingkan algoritma Supervised Learning model Random Forest Regression dan Gradient Boosting Regression dalam memprediksi hotspots kebakaran hutan untuk studi kasus wilayah Sumatra. \n2.	Mengetahui indikator iklim apa saja yang memilki kolerasi paling tinggi terhadap penyebaran hotspot, dan persentase kontribusi dalam model. \n3.	Menggunakan bahasa pemorgraman python untuk implementasi memprediksi hotspot menggunakan model Random Forest Regression dan Gradient Boosting Regression.")
 
     if choose   == "Set Data": set_data()
     elif choose == "Visualisasi Data": visualisasi_data()
