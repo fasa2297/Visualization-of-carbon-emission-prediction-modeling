@@ -96,7 +96,7 @@ def visualisasi_data():
     corrtab1, corrtab2 = st.tabs(["Cross-Correlation Analysis", "Pearson Correlation"])
     with corrtab1: 
         st.caption("Menampilkan korelasi variabel terhadap emisi karbon menggunakan metode Cross-Correlation Analysis")
-        st.image('data/Corellation_cross.png')
+        st.image('data/Corellation_cross.png', caption="Phone&Tablet: tab 2x -> swap ke kiri -> view fullscreen memperbesar gambar")
     with corrtab2: 
         st.caption("Menampilkan korelasi variabel terhadap emisi karbon menggunakan metode Pearson Correlation")
         st.image('data/Corellation_pearson.png')
