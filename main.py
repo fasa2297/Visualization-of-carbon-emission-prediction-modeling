@@ -106,7 +106,7 @@ def emissions_display_rfr_default():
         st.subheader("🔥Visualisasi Prediksi Random Forest Regression")
         col1, col2 = st.columns([2.5,1])
         with col1:
-            st.info("Menampilkan proyeksi prediksi sebaran emisi karbon pulau Sumatera untuk tahun 2021, 2022, 2023, sebagai indikasi hotspot kebarakaran hutan hasil Randon Forest Regression dengan rasio **88% : 12% (3 Tahun)**. Dan menampilkan Kontribusi Variabel dan Skor WOE terhadap model RFR.", icon="ℹ️")
+            st.info("Menampilkan proyeksi prediksi sebaran emisi karbon pulau Sumatera untuk tahun 2021, 2022, 2023, sebagai indikasi hotspot kebarakaran hutan hasil Random Forest Regression dengan rasio **88% : 12% (3 Tahun)**. Dan menampilkan Kontribusi Variabel dan Skor WOE terhadap model RFR.", icon="ℹ️")
         with col2:
             st.warning("RMSE: 10,43 MAE: 108,91", icon="⚠️")
  
@@ -162,7 +162,7 @@ def emissions_display_rfr_r4():
         st.subheader("🔥Visualisasi Prediksi Random Forest Regression")
         col1, col2 = st.columns([2.5,1])
         with col1:
-            st.info("Menampilkan proyeksi prediksi sebaran emisi karbon pulau Sumatera untuk tahun 2020, 2021, 2022, 2023, sebagai indikasi hotspot kebarakaran hutan hasil Randon Forest Regression dengan rasio **84% : 16% (4 Tahun)**.", icon="ℹ️")
+            st.info("Menampilkan proyeksi prediksi sebaran emisi karbon pulau Sumatera untuk tahun 2020, 2021, 2022, 2023, sebagai indikasi hotspot kebarakaran hutan hasil Random Forest Regression dengan rasio **84% : 16% (4 Tahun)**.", icon="ℹ️")
         with col2:
             st.warning("RMSE: 128.80 MAE: 16590.48", icon="⚠️")
         rtab1, rtab2, rtab3, rtab4 = st.tabs(["Emisi Karbon 2020", "Emisi Karbon 2021", "Emisi Karbon 2022", "Emisi Karbon 2023"])
@@ -213,7 +213,7 @@ def emissions_display_rfr_r5():
         st.subheader("🔥Visualisasi Prediksi Random Forest Regression")
         col1, col2 = st.columns([2.5,1])
         with col1:
-            st.info("Menampilkan proyeksi prediksi sebaran emisi karbon pulau Sumatera untuk tahun 2019, 2020, 2021, 2022, 2023, sebagai indikasi hotspot kebarakaran hutan hasil Randon Forest Regression dengan rasio **80% : 20% (5 Tahun)**.", icon="ℹ️")
+            st.info("Menampilkan proyeksi prediksi sebaran emisi karbon pulau Sumatera untuk tahun 2019, 2020, 2021, 2022, 2023, sebagai indikasi hotspot kebarakaran hutan hasil Random Forest Regression dengan rasio **80% : 20% (5 Tahun)**.", icon="ℹ️")
         with col2:
             st.warning("RMSE: 115.89 MAE: 13430.80", icon="⚠️")
 
