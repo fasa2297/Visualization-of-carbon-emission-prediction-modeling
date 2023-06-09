@@ -36,6 +36,7 @@ st.markdown(
 import numpy as np
 import pandas as pd
 from streamlit_option_menu import option_menu
+import streamlit.components.v1 as html
 
 df_data = pd.read_csv('data/DataSumatera_land_98u22.csv')
 def set_data():
