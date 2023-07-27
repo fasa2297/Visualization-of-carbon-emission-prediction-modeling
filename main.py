@@ -12,7 +12,7 @@ st.markdown(
         backdrop-filter: blur(10px); /* Add blur effect to navbar */
         background-color: rgba(254, 249, 232, 0.5); /* Set transparent background color */
     }
-    div.css-1v0mbdj.etr89bj1 img, div.css-1v0mbdj.ebxwdo61 img{
+    div.css-1v0mbdj.etr89bj1 img, div.css-1v0mbdj.ebxwdo61, css-1v0mbdj.e115fcil1 img{
         background-color: #f5f5f5;
         border: 2px solid;
         border-radius: 10px;
